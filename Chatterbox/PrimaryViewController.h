@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  PrimaryViewController.h
 //  Chatterbox
 //
 //  Created by Philip Bale on 12/24/15.
@@ -8,8 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface ViewController : NSViewController
-
+@interface PrimaryViewController : NSViewController
+ 
 
 @end
-
