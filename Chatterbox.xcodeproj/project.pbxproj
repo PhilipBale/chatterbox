@@ -12,6 +12,8 @@
 		D40724491C2C7585004823C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D40724481C2C7585004823C2 /* Assets.xcassets */; };
 		D407244C1C2C7585004823C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D407244A1C2C7585004823C2 /* Main.storyboard */; };
 		D40724581C2C85C6004823C2 /* PrimaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D40724571C2C85C6004823C2 /* PrimaryViewController.m */; };
+		D40724601C2DC5D1004823C2 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D407245F1C2DC5D1004823C2 /* AddressBook.framework */; };
+		D40724631C2DD1CB004823C2 /* PeoplePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D40724621C2DD1CB004823C2 /* PeoplePickerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,9 @@
 		D407244D1C2C7585004823C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D40724561C2C85C6004823C2 /* PrimaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrimaryViewController.h; path = ../../chatterbox/Chatterbox/PrimaryViewController.h; sourceTree = "<group>"; };
 		D40724571C2C85C6004823C2 /* PrimaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrimaryViewController.m; path = ../../chatterbox/Chatterbox/PrimaryViewController.m; sourceTree = "<group>"; };
+		D407245F1C2DC5D1004823C2 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		D40724611C2DD1CB004823C2 /* PeoplePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PeoplePickerView.h; path = ../../chatterbox/Chatterbox/PeoplePickerView.h; sourceTree = "<group>"; };
+		D40724621C2DD1CB004823C2 /* PeoplePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PeoplePickerView.m; path = ../../chatterbox/Chatterbox/PeoplePickerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D40724601C2DC5D1004823C2 /* AddressBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +46,7 @@
 		D40724331C2C7584004823C2 = {
 			isa = PBXGroup;
 			children = (
+				D407245F1C2DC5D1004823C2 /* AddressBook.framework */,
 				D407243E1C2C7585004823C2 /* Chatterbox */,
 				D407243D1C2C7585004823C2 /* Products */,
 			);
@@ -58,6 +65,8 @@
 			children = (
 				D407243F1C2C7585004823C2 /* AppDelegate.h */,
 				D40724401C2C7585004823C2 /* AppDelegate.m */,
+				D40724611C2DD1CB004823C2 /* PeoplePickerView.h */,
+				D40724621C2DD1CB004823C2 /* PeoplePickerView.m */,
 				D40724561C2C85C6004823C2 /* PrimaryViewController.h */,
 				D40724571C2C85C6004823C2 /* PrimaryViewController.m */,
 				D40724481C2C7585004823C2 /* Assets.xcassets */,
@@ -148,6 +157,7 @@
 				D40724441C2C7585004823C2 /* main.m in Sources */,
 				D40724581C2C85C6004823C2 /* PrimaryViewController.m in Sources */,
 				D40724411C2C7585004823C2 /* AppDelegate.m in Sources */,
+				D40724631C2DD1CB004823C2 /* PeoplePickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
