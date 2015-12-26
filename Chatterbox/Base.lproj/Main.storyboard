@@ -343,37 +343,33 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
+                <windowController id="B8D-0N-5wS" customClass="PrimaryWindowController" sceneMemberID="viewController">
                     <window key="window" title="Chatterbox by Philip Bale - LogikComputing.com" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="633" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <toolbar key="toolbar" implicitIdentifier="C1A23BD4-BAE8-4EA0-9553-63EEA104F2EE" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="fEL-In-cHe">
+                        <toolbar key="toolbar" implicitIdentifier="C1A23BD4-BAE8-4EA0-9553-63EEA104F2EE" explicitIdentifier="mainToolbar" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="fEL-In-cHe">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="CKP-ua-DA9"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="ieL-l4-hZ8"/>
                                 <toolbarItem implicitItemIdentifier="BB8FE06D-EF56-4CF4-88B3-D40DBC41A49C" label="Start" paletteLabel="Start" tag="-1" image="start_icon" id="GRd-C3-H2x">
                                     <connections>
-                                        <action selector="startButtonPressed:" target="Oky-zY-oP4" id="pp7-IX-Egw"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="F026E548-CF36-413F-BCDE-D3743C3488BD" label="Stop" paletteLabel="Stop" tag="-1" image="stop_icon" id="m2W-6g-mbp">
-                                    <connections>
-                                        <action selector="stopButtonPressed:" target="Oky-zY-oP4" id="GrA-Lf-j1n"/>
+                                        <action selector="actionButtonPressed:" target="Oky-zY-oP4" id="8cd-XU-sBh"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="0DC69704-2ED7-454A-B4CB-90383E9C4DD4" label="Toolbar Item" paletteLabel="Toolbar Item" tag="-1" image="NSAddTemplate" id="Y1K-fc-waj"/>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="ieL-l4-hZ8"/>
-                                <toolbarItem reference="m2W-6g-mbp"/>
                                 <toolbarItem reference="GRd-C3-H2x"/>
                                 <toolbarItem reference="CKP-ua-DA9"/>
                             </defaultToolbarItems>
                         </toolbar>
                     </window>
                     <connections>
+                        <outlet property="actionToolbarItem" destination="GRd-C3-H2x" id="gAb-41-HLT"/>
+                        <outlet property="startToolbarItem" destination="GRd-C3-H2x" id="AfO-fM-r07"/>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
                     </connections>
                 </windowController>
@@ -522,6 +518,5 @@
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="start_icon" width="600" height="600"/>
-        <image name="stop_icon" width="600" height="600"/>
     </resources>
 </document>

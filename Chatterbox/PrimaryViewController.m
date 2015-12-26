@@ -7,8 +7,16 @@
 //
 
 #import "PrimaryViewController.h"
+#import "PrimaryWindowController.h"
 
 @interface PrimaryViewController () <PeoplePickerViewDelegate>
+
+@property (nonatomic, weak) PrimaryWindowController *primaryWindowController;
+@property (nonatomic, strong) NSAppleScript* scriptObject;
+@property (nonatomic, strong) NSTimer* progressTimer;
+
+@property (nonatomic) NSInteger messageCount;
+@property (nonatomic) NSInteger quantity;
 
 @end
 
@@ -23,11 +31,20 @@
     [self.peoplePickerView addProperty:kABPhoneProperty];
     [self.peoplePickerView removeProperty:kABEmailProperty];
     [self.peoplePickerView removeProperty:kABEmailHomeLabel];
-    
 }
 
 - (void)enableFields:(BOOL)value
 {
+    self.primaryWindowController = [[NSApp keyWindow] windowController];
+    if (value) {
+        [self.primaryWindowController.actionToolbarItem setLabel:@"Start"];
+        [self.primaryWindowController.actionToolbarItem setImage:[NSImage imageNamed:@"start_icon"]];
+        
+    } else {
+        
+        [self.primaryWindowController.actionToolbarItem setLabel:@"Quit"];
+        [self.primaryWindowController.actionToolbarItem setImage:[NSImage imageNamed:@"stop_icon"]];
+    }
     [self.peoplePickerView setHidden:!value];
     [self.phoneNumberTextField setEnabled:value];
     [self.messageTextField setEnabled:value];
@@ -38,13 +55,22 @@
     [self.iMessageRadioButton setEnabled:value];
 }
 
+- (IBAction)actionButtonPressed:(id)sender
+{
+    NSLog(@"Action button pressed");
+    if ([[sender label] containsString:@"Start"]) {
+        [self startButtonPressed:sender];
+    } else {
+        [self stopButtonPressed:sender];
+    }
+}
+
 - (IBAction)startButtonPressed:(id)sender
 {
     NSLog(@"Start button pressed");
     [self enableFields:NO];
     
-    NSDictionary* errorDict;
-    NSAppleEventDescriptor* returnDescriptor = NULL;
+    
     
     //http://www.tenshu.net/2015/02/send-imessage-and-sms-with-applescript.html
     
@@ -58,47 +84,79 @@
         serviceType =  @"(service 1 whose service type is iMessage)";
     }
     
+    self.messageCount = 0;
+    self.quantity = [self.quantityTextField.stringValue intValue];
+    [self.progressBar setMinValue:0.0];
+    [self.progressBar setDoubleValue:0.0];
+    [self.progressBar setMaxValue:self.quantity];
+    
     NSString *payload = [NSString stringWithFormat:@"\
-    repeat %@ times\n\
-    set rnd to (random number from 1 to 200)\n\
-    set rnd to rnd as string\n\
-    tell application \"Messages\" to send \"%@\" & %@ to buddy \"%@\" of %@ \n\
-    delay %@ \n\
-    end repeat", self.quantityTextField.stringValue, self.messageTextField.stringValue, randPortion, self.phoneNumberTextField.stringValue, serviceType, self.delayTextField.stringValue];
+                         repeat %@ times\n\
+                         set rnd to (random number from 1 to 200)\n\
+                         set rnd to rnd as string\n\
+                         tell application \"Messages\" to send \"%@\" & %@ to buddy \"%@\" of %@ \n\
+                         delay %@ \n\
+                         end repeat", self.quantityTextField.stringValue, self.messageTextField.stringValue, randPortion, self.phoneNumberTextField.stringValue, serviceType, self.delayTextField.stringValue];
     
     NSLog(@"Payload: %@", payload);
-
     
-    NSAppleScript* scriptObject = [[NSAppleScript alloc] initWithSource: payload];
     
-    returnDescriptor = [scriptObject executeAndReturnError: &errorDict];
+    self.scriptObject = [[NSAppleScript alloc] initWithSource: payload];
+    NSNumber *delay = [NSNumber numberWithInteger:[self.delayTextField.stringValue integerValue]];
+    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:[delay floatValue]
+                                                          target:self selector:@selector(updateProgressBar) userInfo:nil repeats:YES];
     
-    if (returnDescriptor != NULL)
-    {
-        NSLog(@"Successful exection");
-        // successful execution
-        if (kAENullEvent != [returnDescriptor descriptorType])
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSDictionary* errorDict;
+        NSAppleEventDescriptor* returnDescriptor = NULL;
+        
+        returnDescriptor = [self.scriptObject executeAndReturnError: &errorDict];
+        
+        if (returnDescriptor != NULL)
         {
-            // script returned an AppleScript result
-            if (cAEList == [returnDescriptor descriptorType])
+            NSLog(@"Successful exection");
+            // successful execution
+            if (kAENullEvent != [returnDescriptor descriptorType])
             {
-                // result is a list of other descriptors
-            }
-            else
-            {
-                // coerce the result to the appropriate ObjC type
+                // script returned an AppleScript result
+                if (cAEList == [returnDescriptor descriptorType])
+                {
+                    // result is a list of other descriptors
+                }
+                else
+                {
+                    // coerce the result to the appropriate ObjC type
+                }
             }
         }
-    }
-    else
-    {
-        NSLog(@"Error: %@", errorDict);
-        // no script result, handle error here
-    }
+        else
+        {
+            NSLog(@"Error: %@", errorDict);
+            // no script result, handle error here
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self enableFields:YES];
+        });
+    });
     
-    [self enableFields:YES];
 }
 - (IBAction)messageTypeSwitched:(id)sender {
+    
+}
+
+- (void)updateProgressBar {
+    
+    self.messageCount++;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.progressBar incrementBy:1.0];
+    });
+    
+    if (self.quantity == self.messageCount) {
+        [self.progressTimer invalidate];
+        self.progressTimer = nil;
+    }
+    
 }
 
 - (void)peoplePickerViewClicked
@@ -154,6 +212,7 @@
 
 - (IBAction)stopButtonPressed:(id)sender
 {
+    [NSApp terminate: nil];
     [self enableFields:YES];
     NSLog(@"Stop button pressed");
 }
