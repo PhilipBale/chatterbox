@@ -68,6 +68,9 @@
 - (IBAction)startButtonPressed:(id)sender
 {
     NSLog(@"Start button pressed");
+    
+    if (![self validateFields]) return;
+    
     [self enableFields:NO];
     
     
@@ -215,6 +218,36 @@
     [NSApp terminate: nil];
     [self enableFields:YES];
     NSLog(@"Stop button pressed");
+}
+
+- (BOOL)validateFields {
+    BOOL valid = YES;
+    NSString *errorMessage;
+    
+    if ([self.phoneNumberTextField.stringValue length] != 12) {
+        valid = NO;
+        errorMessage = @"Phone number must be in format: +1(area)(number). Ex: +13021234567";
+    } else if ([self.messageTextField.stringValue length] == 0) {
+        valid = NO;
+        errorMessage = @"Please enter a message to send";
+    } else if ([self.quantityTextField.stringValue length] == 0) {
+        valid = NO;
+        errorMessage = @"Please enter a quantity to send";
+    } else if ([self.delayTextField.stringValue length] == 0) {
+        valid = NO;
+        errorMessage = @"Please enter a delay length";
+    }
+    
+    if (!valid) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert addButtonWithTitle:@"OK"];
+        [alert setMessageText:@"Input Error"];
+        [alert setInformativeText:errorMessage];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert runModal];
+    }
+    
+    return valid;
 }
 
 @end
