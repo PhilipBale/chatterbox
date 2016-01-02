@@ -88,18 +88,18 @@
     }
     
     self.messageCount = 0;
-    self.quantity = [self.quantityTextField.stringValue intValue];
+    self.quantity = [[self.quantityTextField.stringValue stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
     [self.progressBar setMinValue:0.0];
     [self.progressBar setDoubleValue:0.0];
     [self.progressBar setMaxValue:self.quantity];
     
     NSString *payload = [NSString stringWithFormat:@"\
-                         repeat %@ times\n\
+                         repeat %li times\n\
                          set rnd to (random number from 1 to 200)\n\
                          set rnd to rnd as string\n\
                          tell application \"Messages\" to send \"%@\" & %@ to buddy \"%@\" of %@ \n\
                          delay %@ \n\
-                         end repeat", self.quantityTextField.stringValue, self.messageTextField.stringValue, randPortion, self.phoneNumberTextField.stringValue, serviceType, self.delayTextField.stringValue];
+                         end repeat", self.quantity, self.messageTextField.stringValue, randPortion, self.phoneNumberTextField.stringValue, serviceType, self.delayTextField.stringValue];
     
     NSLog(@"Payload: %@", payload);
     
