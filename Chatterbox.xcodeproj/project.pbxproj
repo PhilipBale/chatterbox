@@ -32,6 +32,7 @@
 		D40724621C2DD1CB004823C2 /* PeoplePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PeoplePickerView.m; path = ../../chatterbox/Chatterbox/PeoplePickerView.m; sourceTree = "<group>"; };
 		D40724641C2EFE1A004823C2 /* PrimaryWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrimaryWindowController.h; path = ../../chatterbox/Chatterbox/PrimaryWindowController.h; sourceTree = "<group>"; };
 		D40724651C2EFE1A004823C2 /* PrimaryWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrimaryWindowController.m; path = ../../chatterbox/Chatterbox/PrimaryWindowController.m; sourceTree = "<group>"; };
+		D47C971D1C384A7600C1FDA1 /* Chatterbox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Chatterbox.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +67,7 @@
 		D407243E1C2C7585004823C2 /* Chatterbox */ = {
 			isa = PBXGroup;
 			children = (
+				D47C971D1C384A7600C1FDA1 /* Chatterbox.entitlements */,
 				D407243F1C2C7585004823C2 /* AppDelegate.h */,
 				D40724401C2C7585004823C2 /* AppDelegate.m */,
 				D40724611C2DD1CB004823C2 /* PeoplePickerView.h */,
@@ -121,6 +123,12 @@
 				TargetAttributes = {
 					D407243B1C2C7585004823C2 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 9525LJ6YEJ;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -264,6 +272,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Chatterbox/Chatterbox.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Chatterbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -276,6 +286,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Chatterbox/Chatterbox.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Chatterbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -303,6 +315,7 @@
 				D40724521C2C7585004823C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
